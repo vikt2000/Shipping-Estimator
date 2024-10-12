@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(23)
 	}
 }
 
@@ -32,6 +32,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.h2database:h2'  // Moved inside the dependencies block
 }
 
 tasks.named('test') {
@@ -39,22 +40,15 @@ tasks.named('test') {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = 'local'
-            url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
-        }
-    }
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			name = 'local'
+			url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
+		}
+	}
 }
-
-// Datasource configuration
-// spring.datasource.url=jdbc:mysql://localhost:3306/yourdatabase
-// spring.datasource.username=yourusername
-// spring.datasource.password=yourpassword
-// spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-// spring.datasource.hikari.maximum-pool-size=10
