@@ -1,4 +1,4 @@
-package com.clearvoyage.shipping_estimator;
+package com.clearvoyage.shipping_estimator.controllers;
 
 import org.springframework.web.bind.annotation.*;
 
