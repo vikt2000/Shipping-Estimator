@@ -55,7 +55,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("error", "Invalid value '" + ex.getValue() + "' for parameter '" + ex.getName() + "'. Expected type: " + ex.getRequiredType().getSimpleName());
+        String requiredType = ((Class<?>) java.util.Objects.requireNonNullElse(ex.getRequiredType(), Object.class)).getSimpleName();
+        error.put("error", "Invalid value '" + ex.getValue() + "' for parameter '" + ex.getName() + "'. Expected type: " + requiredType);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
