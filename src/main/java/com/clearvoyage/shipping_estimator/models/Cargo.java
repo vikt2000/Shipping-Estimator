@@ -14,5 +14,5 @@ public class Cargo {
     private Port dischargePort;
     private Integer quantity;
     private String unit;
-    private Double weight; // Changed to Double for fractional weights
+    private Double weight;
 }
