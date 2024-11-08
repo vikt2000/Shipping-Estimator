@@ -47,4 +47,3 @@ departure (String): The departure location.
 arrival (String): The arrival location.
 vesselType (String): The type of vessel.
 weight (double): The weight of the shipment.
-

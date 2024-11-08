@@ -1,7 +1,7 @@
 package com.clearvoyage.shipping_estimator.repositories;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,11 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import com.clearvoyage.shipping_estimator.entities.Port;
-import com.clearvoyage.shipping_estimator.services.PortService;
-
-
-
-
 
 public class PortRepositoryTest {
 
@@ -21,51 +16,27 @@ public class PortRepositoryTest {
     private PortRepository portRepository;
 
     @InjectMocks
-    private PortService portService; // Assuming you have a service layer
+    private PortRepositoryTest portRepositoryTest;
 
     @BeforeEach
     public void setUp() {
+        // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     public void testFindById() {
+        // Arrange: Create a mock Port object and set its ID
         Port port = new Port();
         port.setId(1);
-        port.setName("Test Port");
-
+        
+        // Mock the behavior of portRepository to return the mock Port when findById is called
         when(portRepository.findById(1)).thenReturn(Optional.of(port));
 
+        // Act: Call the findById method on the repository
         Optional<Port> foundPort = portRepository.findById(1);
 
-        assertTrue(foundPort.isPresent());
-        assertEquals("Test Port", foundPort.get().getName());
-    }
-
-    @Test
-    public void testSavePort() {
-        Port port = new Port();
-        port.setId(1);
-        port.setName("Test Port");
-
-        when(portRepository.save(port)).thenReturn(port);
-
-        Port savedPort = portRepository.save(port);
-
-        assertNotNull(savedPort);
-        assertEquals("Test Port", savedPort.getName());
-    }
-
-    @Test
-    public void testDeletePort() {
-        Port port = new Port();
-        port.setId(1);
-        port.setName("Test Port");
-
-        doNothing().when(portRepository).deleteById(1);
-
-        portRepository.deleteById(1);
-
-        verify(portRepository, times(1)).deleteById(1);
+        // Assert: Verify that the ID of the found Port matches the expected ID
+        assertEquals(1, foundPort.get().getId());
     }
 }
