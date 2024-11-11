@@ -1,10 +1,14 @@
-
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.4'
     id 'io.spring.dependency-management' version '1.1.6'
     id 'maven-publish'
+    id 'jacoco' // Add JaCoCo plugin
+    id 'org.sonarqube' version '4.3.0.3225' // Add SonarQube plugin
+    id 'com.avast.gradle.docker-compose' version '0.14.11' // Add Docker Compose plugin
 }
+
+import com.avast.gradle.dockercompose.RemoveImages
 
 group = 'com.clearvoyage'
 version = '0.0.1-SNAPSHOT'
@@ -54,76 +58,35 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-/*
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = 'local'
-            url = new File(System.getProperty('user.home'), '.m2/repository').toURI()
-        }
-    }
-}
-*/
-
-/*
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.3.4'
-    id 'io.spring.dependency-management' version '1.1.6'
-    id 'maven-publish'
-}
-
-group = 'com.clearvoyage'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
-    }
-    sourceSets {
-        main {
-            java {
-                srcDirs = ['src/main/java']
-            }
-        }
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+tasks.test {
+    finalizedBy jacocoTestReport // Generate report after tests run
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "com.clearvoyage:your-project-key"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "your-sonarqube-token"
+        property "sonar.java.binaries", "${project.buildDir}/classes/java/main"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    runtimeOnly 'com.h2database:h2'
-    implementation 'javax.persistence:javax.persistence-api:2.2'
-    implementation 'com.zaxxer:HikariCP:5.0.1'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.5'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.mockito:mockito-core'
-    testImplementation 'org.mockito:mockito-junit-jupiter'
-    testImplementation 'junit:junit:4.13.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
+dockerCompose {
+    useComposeFiles = ['docker-compose.yml']
+    startedServices = ['your-service-name'] // Replace with your actual service name
+    stopContainers = true
+    removeContainers = true
+    removeImages = RemoveImages.Local // Corrected this line
+    removeVolumes = true
+    removeOrphans = true
 }
 
 /*
@@ -141,4 +104,3 @@ publishing {
     }
 }
 */
-
