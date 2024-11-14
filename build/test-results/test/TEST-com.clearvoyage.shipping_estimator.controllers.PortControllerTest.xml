@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:46" hostname="M61191121" time="0.045">
+  <properties/>
+  <testcase name="testGetAllPorts()" classname="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" time="0.038"/>
+  <testcase name="testUpdatePort()" classname="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" time="0.003"/>
+  <testcase name="testCreatePort()" classname="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" time="0.001"/>
+  <testcase name="testDeletePort()" classname="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" time="0.001"/>
+  <testcase name="testGetPortById()" classname="com.clearvoyage.shipping_estimator.controllers.PortControllerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

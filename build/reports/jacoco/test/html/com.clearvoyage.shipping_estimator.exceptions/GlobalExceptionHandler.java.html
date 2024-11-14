@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shipping-estimator</a> &gt; <a href="index.source.html" class="el_package">com.clearvoyage.shipping_estimator.exceptions</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.clearvoyage.shipping_estimator.exceptions;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Global exception handler to manage and respond to different types of exceptions.
+ */
+@ControllerAdvice
+<span class="fc" id="L17">public class GlobalExceptionHandler {</span>
+
+    /**
+     * Handles ResourceNotFoundExceptions.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleResourceNotFound(ResourceNotFoundException ex) {
+<span class="fc" id="L27">        Map&lt;String, String&gt; error = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">        error.put(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L29">        return new ResponseEntity&lt;&gt;(error, HttpStatus.NOT_FOUND);</span>
+    }
+
+    /**
+     * Handles validation errors.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with validation error details.
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleValidationErrors(MethodArgumentNotValidException ex) {
+        Map&lt;String,
+<span class="fc" id="L41">         String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L42">        ex.getBindingResult().getAllErrors().forEach((error) -&gt; {</span>
+<span class="fc" id="L43">            String fieldName = ((FieldError) error).getField();</span>
+<span class="fc" id="L44">            String message = error.getDefaultMessage();</span>
+<span class="fc" id="L45">            errors.put(fieldName, message);</span>
+<span class="fc" id="L46">        });</span>
+<span class="fc" id="L47">        return new ResponseEntity&lt;&gt;(errors, HttpStatus.BAD_REQUEST);</span>
+    }
+
+    /**
+     * Handles type mismatch errors.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+<span class="fc" id="L58">        Map&lt;String, String&gt; error = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L59">        String requiredType = ((Class&lt;?&gt;) java.util.Objects.requireNonNullElse(ex.getRequiredType(), Object.class)).getSimpleName();</span>
+<span class="fc" id="L60">        error.put(&quot;error&quot;, &quot;Invalid value '&quot; + ex.getValue() + &quot;' for parameter '&quot; + ex.getName() + &quot;'. Expected type: &quot; + requiredType);</span>
+<span class="fc" id="L61">        return new ResponseEntity&lt;&gt;(error, HttpStatus.BAD_REQUEST);</span>
+    }
+
+    /**
+     * Handles all other exceptions.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleGeneralException(Exception ex) {
+<span class="fc" id="L72">        Map&lt;String, String&gt; error = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L73">        error.put(&quot;error&quot;, &quot;An unexpected error occurred.&quot;);</span>
+        // Optionally log the exception
+<span class="fc" id="L75">        return new ResponseEntity&lt;&gt;(error, HttpStatus.INTERNAL_SERVER_ERROR);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

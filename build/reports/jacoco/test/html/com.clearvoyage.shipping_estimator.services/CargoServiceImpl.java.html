@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CargoServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shipping-estimator</a> &gt; <a href="index.source.html" class="el_package">com.clearvoyage.shipping_estimator.services</a> &gt; <span class="el_source">CargoServiceImpl.java</span></div><h1>CargoServiceImpl.java</h1><pre class="source lang-java linenums">package com.clearvoyage.shipping_estimator.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;  // Import the Transactional annotation
+import com.clearvoyage.shipping_estimator.entities.Cargo;
+import com.clearvoyage.shipping_estimator.entities.Port; // Assuming Port is the entity class for LoadingPort and DischargePort
+import com.clearvoyage.shipping_estimator.repositories.CargoRepository;
+import com.clearvoyage.shipping_estimator.repositories.PortRepository; // Import the Port repository
+import java.util.NoSuchElementException; // Import this
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CargoServiceImpl implements CargoService {
+
+    private final CargoRepository cargoRepository;
+    private final PortRepository portRepository; // Add the Port repository
+
+    @Autowired
+<span class="fc" id="L22">    public CargoServiceImpl(CargoRepository cargoRepository, PortRepository portRepository) {</span>
+<span class="fc" id="L23">        this.cargoRepository = cargoRepository;</span>
+<span class="fc" id="L24">        this.portRepository = portRepository; // Initialize the Port repository</span>
+<span class="fc" id="L25">    }</span>
+
+    @Override
+    @Transactional  // Ensure that this method is transactional
+    public Cargo saveCargo(Cargo cargo) {
+        // Check and merge the associated ports to ensure they are managed
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (cargo.getLoadingPort() != null) {</span>
+<span class="fc" id="L32">            Port loadingPort = portRepository.findById(cargo.getLoadingPort().getId())</span>
+<span class="pc" id="L33">                .orElseThrow(() -&gt; new NoSuchElementException(&quot;Loading Port not found&quot;)); // Corrected here</span>
+<span class="fc" id="L34">            cargo.setLoadingPort(loadingPort); // Set the managed loading port</span>
+        }
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (cargo.getDischargePort() != null) {</span>
+<span class="nc" id="L37">            Port dischargePort = portRepository.findById(cargo.getDischargePort().getId())</span>
+<span class="nc" id="L38">                .orElseThrow(() -&gt; new NoSuchElementException(&quot;Discharge Port not found&quot;)); // Corrected here</span>
+<span class="nc" id="L39">            cargo.setDischargePort(dischargePort); // Set the managed discharge port</span>
+        }
+    
+<span class="fc" id="L42">        return cargoRepository.save(cargo); </span>
+    }
+
+    @Override
+    public Optional&lt;Cargo&gt; getCargoById(Integer id) {
+<span class="fc" id="L47">        return cargoRepository.findById(id);</span>
+    }
+
+    @Override
+    public List&lt;Cargo&gt; getAllCargos() {
+<span class="fc" id="L52">        return cargoRepository.findAll();</span>
+    }
+
+    @Override
+    public Optional&lt;Cargo&gt; updateCargo(Integer id, Cargo cargoDetails) {
+<span class="fc" id="L57">        return cargoRepository.findById(id).map(existingCargo -&gt; {</span>
+<span class="fc" id="L58">            existingCargo.setName(cargoDetails.getName());</span>
+    
+            // Update ports in the same manner as saveCargo
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            if (cargoDetails.getLoadingPort() != null) {</span>
+<span class="fc" id="L62">                Port loadingPort = portRepository.findById(cargoDetails.getLoadingPort().getId())</span>
+<span class="pc" id="L63">                    .orElseThrow(() -&gt; new NoSuchElementException(&quot;Loading Port not found&quot;)); // Corrected here</span>
+<span class="fc" id="L64">                existingCargo.setLoadingPort(loadingPort);</span>
+            }
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">            if (cargoDetails.getDischargePort() != null) {</span>
+<span class="nc" id="L67">                Port dischargePort = portRepository.findById(cargoDetails.getDischargePort().getId())</span>
+<span class="nc" id="L68">                    .orElseThrow(() -&gt; new NoSuchElementException(&quot;Discharge Port not found&quot;)); // Corrected here</span>
+<span class="nc" id="L69">                existingCargo.setDischargePort(dischargePort);</span>
+            }
+    
+<span class="fc" id="L72">            existingCargo.setQuantity(cargoDetails.getQuantity());</span>
+<span class="fc" id="L73">            existingCargo.setUnit(cargoDetails.getUnit());</span>
+<span class="fc" id="L74">            existingCargo.setWeight(cargoDetails.getWeight());</span>
+<span class="fc" id="L75">            return cargoRepository.save(existingCargo);</span>
+        });
+    }
+
+    @Override
+    public boolean deleteCargo(Integer id) {
+<span class="fc" id="L81">        return cargoRepository.findById(id).map(cargo -&gt; {</span>
+<span class="fc" id="L82">            cargoRepository.delete(cargo);</span>
+<span class="fc" id="L83">            return true;</span>
+<span class="fc" id="L84">        }).orElse(false);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

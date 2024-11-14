@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shipping-estimator</a> &gt; <a href="index.source.html" class="el_package">com.clearvoyage.shipping_estimator.dataloader</a> &gt; <span class="el_source">DataLoader.java</span></div><h1>DataLoader.java</h1><pre class="source lang-java linenums">package com.clearvoyage.shipping_estimator.dataloader;
+
+import com.clearvoyage.shipping_estimator.entities.Cargo;
+import com.clearvoyage.shipping_estimator.entities.Estimate;
+import com.clearvoyage.shipping_estimator.entities.Port;
+import com.clearvoyage.shipping_estimator.entities.Vessel;
+import com.clearvoyage.shipping_estimator.services.CargoService;
+import com.clearvoyage.shipping_estimator.services.EstimateService;
+import com.clearvoyage.shipping_estimator.services.PortService;
+import com.clearvoyage.shipping_estimator.services.VesselService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataLoader implements CommandLineRunner {
+
+    private final CargoService cargoService;
+    private final PortService portService ;
+    private final EstimateService estimateService;
+    private final VesselService vesselService;
+
+
+    @Autowired
+<span class="nc" id="L26">    public DataLoader(CargoService cargoService, PortService portService, EstimateService estimateService, VesselService vesselService) {</span>
+<span class="nc" id="L27">        this.cargoService = cargoService;</span>
+<span class="nc" id="L28">        this.portService = portService;</span>
+<span class="nc" id="L29">        this.estimateService = estimateService;</span>
+<span class="nc" id="L30">        this.vesselService = vesselService;</span>
+
+<span class="nc" id="L32">    }</span>
+
+    @Override
+    public void run(String... args) throws Exception {
+        // Create some sample Ports
+<span class="nc" id="L37">        Port port1 = new Port(null, &quot;Port of Los Angeles&quot;, 2100.215, 57751.365);</span>
+<span class="nc" id="L38">        Port port2 = new Port(null, &quot;Port of New York&quot;, 54561.2156, 5485.264);</span>
+<span class="nc" id="L39">        portService.savePort(port1);</span>
+<span class="nc" id="L40">        portService.savePort(port2);</span>
+
+        // Create some sample Cargos
+<span class="nc" id="L43">        Cargo cargo1 = new Cargo(null, &quot;Electronics&quot;, port1, port2, 1000, &quot;pcs&quot;, 1200.0);</span>
+<span class="nc" id="L44">        Cargo cargo2 = new Cargo(null, &quot;Furniture&quot;, port2, port1, 500, &quot;pcs&quot;, 2500.0);</span>
+<span class="nc" id="L45">        cargoService.saveCargo(cargo1);</span>
+<span class="nc" id="L46">        cargoService.saveCargo(cargo2);</span>
+
+        // Create and save a sample Vessel
+<span class="nc" id="L49">        Vessel vessel1 = new Vessel((9223372036854775807L), &quot;Cargo Ship 1&quot;, 2500.0, 500.0, 200.0);</span>
+<span class="nc" id="L50">        vesselService.saveVessel(vessel1);</span>
+
+        // Create and save an Estimate
+<span class="nc" id="L53">        Estimate estimate1 = new Estimate(null, cargo1, vessel1, 1200.0);</span>
+<span class="nc" id="L54">        estimateService.saveEstimate(estimate1);</span>
+
+        // Optional: You could also create more instances of each entity as
+
+
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

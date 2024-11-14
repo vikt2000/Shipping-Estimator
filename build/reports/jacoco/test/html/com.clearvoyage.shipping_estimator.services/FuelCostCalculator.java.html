@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FuelCostCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shipping-estimator</a> &gt; <a href="index.source.html" class="el_package">com.clearvoyage.shipping_estimator.services</a> &gt; <span class="el_source">FuelCostCalculator.java</span></div><h1>FuelCostCalculator.java</h1><pre class="source lang-java linenums">package com.clearvoyage.shipping_estimator.services;
+
+<span class="nc" id="L3">public class FuelCostCalculator {</span>
+
+    public static void main(String[] args) {
+        // Define the distance of the voyage in nautical miles
+<span class="fc" id="L7">        double distanceInNauticalMiles = 1000.0;</span>
+        
+        // Calculate the fuel cost for the given distance
+<span class="fc" id="L10">        double fuelCost = calculateFuelCost(distanceInNauticalMiles);</span>
+
+        // Print the total fuel cost
+<span class="fc" id="L13">        System.out.println(&quot;Total fuel cost: $&quot; + fuelCost);</span>
+<span class="fc" id="L14">    }</span>
+
+    /**
+     * Calculates the fuel cost based on the distance.
+     *
+     * @param distanceInNauticalMiles The distance of the voyage in nautical miles.
+     * @return The total fuel cost in USD.
+     */
+    public static double calculateFuelCost(double distanceInNauticalMiles) {
+        // Average speed of the ship in knots
+<span class="fc" id="L24">        double averageSpeedInKnots = 12.0;</span>
+        
+        // Fuel consumption per day in tonnes
+<span class="fc" id="L27">        double fuelConsumptionPerDay = 20.0;</span>
+        
+        // Price of fuel per tonne in USD
+<span class="fc" id="L30">        double fuelPricePerTonne = 500.0;</span>
+
+        // Calculate the duration of the voyage in days
+<span class="fc" id="L33">        double voyageDurationInDays = distanceInNauticalMiles / averageSpeedInKnots / 24.0;</span>
+
+        // Calculate the total fuel consumption for the voyage
+<span class="fc" id="L36">        double totalFuelConsumption = voyageDurationInDays * fuelConsumptionPerDay;</span>
+
+        // Calculate and return the total fuel cost
+<span class="fc" id="L39">        return totalFuelConsumption * fuelPricePerTonne;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.controllers.SeaRoutesControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:46" hostname="M61191121" time="0.466">
+  <properties/>
+  <testcase name="testTestSeaRoutes()" classname="com.clearvoyage.shipping_estimator.controllers.SeaRoutesControllerTest" time="0.466"/>
+  <system-out><![CDATA[2024-11-14T14:41:46.093+01:00  INFO 32196 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.clearvoyage.shipping_estimator.controllers.SeaRoutesControllerTest]: SeaRoutesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14T14:41:46.101+01:00  INFO 32196 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.clearvoyage.shipping_estimator.ShippingEstimatorApplication for test class com.clearvoyage.shipping_estimator.controllers.SeaRoutesControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-11-14T14:41:46.123+01:00  INFO 32196 --- [    Test worker] c.c.s.c.SeaRoutesControllerTest          : Starting SeaRoutesControllerTest using Java 23.0.1 with PID 32196 (started by m0770 in C:\Users\m0770\OneDrive\my disk\Shipping-Estimator-master\Shipping-Estimator)
+2024-11-14T14:41:46.124+01:00  INFO 32196 --- [    Test worker] c.c.s.c.SeaRoutesControllerTest          : No active profile set, falling back to 1 default profile: "default"
+2024-11-14T14:41:46.843+01:00  INFO 32196 --- [    Test worker] c.c.s.c.SeaRoutesControllerTest          : Started SeaRoutesControllerTest in 0.74 seconds (process running for 15.6)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

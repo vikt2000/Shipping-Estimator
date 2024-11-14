@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.services.FuelCostCalculatorTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:48" hostname="M61191121" time="0.005">
+  <properties/>
+  <testcase name="testCalculateFuelCost()" classname="com.clearvoyage.shipping_estimator.services.FuelCostCalculatorTest" time="0.003"/>
+  <testcase name="testMain()" classname="com.clearvoyage.shipping_estimator.services.FuelCostCalculatorTest" time="0.001"/>
+  <system-out><![CDATA[Total fuel cost: $34722.22222222222
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

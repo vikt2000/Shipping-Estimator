@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:45" hostname="M61191121" time="0.07">
+  <properties/>
+  <testcase name="testDeleteEstimate_NotFound()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.054"/>
+  <testcase name="testDeleteEstimate()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.001"/>
+  <testcase name="testGetEstimateById()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.004"/>
+  <testcase name="testGetEstimateById_NotFound()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.002"/>
+  <testcase name="testUpdateEstimate_NotFound()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.001"/>
+  <testcase name="testGetAllEstimates()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.001"/>
+  <testcase name="testUpdateEstimate()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.001"/>
+  <testcase name="testCreateEstimate()" classname="com.clearvoyage.shipping_estimator.controllers.EstimateControllerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

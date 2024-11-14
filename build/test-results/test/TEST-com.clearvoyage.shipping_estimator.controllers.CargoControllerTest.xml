@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:45" hostname="M61191121" time="0.295">
+  <properties/>
+  <testcase name="testDeleteCargo()" classname="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" time="0.138"/>
+  <testcase name="testUpdateCargo()" classname="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" time="0.128"/>
+  <testcase name="testCreateCargo()" classname="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" time="0.006"/>
+  <testcase name="testGetAllCargos()" classname="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" time="0.009"/>
+  <testcase name="testGetCargoById()" classname="com.clearvoyage.shipping_estimator.controllers.CargoControllerTest" time="0.008"/>
+  <system-out><![CDATA[2024-11-14T14:41:44.480+01:00  INFO 32196 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.clearvoyage.shipping_estimator.controllers.CargoControllerTest]: CargoControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-14T14:41:44.502+01:00  INFO 32196 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.clearvoyage.shipping_estimator.ShippingEstimatorApplication for test class com.clearvoyage.shipping_estimator.controllers.CargoControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-11-14T14:41:44.527+01:00  INFO 32196 --- [    Test worker] c.c.s.controllers.CargoControllerTest    : Starting CargoControllerTest using Java 23.0.1 with PID 32196 (started by m0770 in C:\Users\m0770\OneDrive\my disk\Shipping-Estimator-master\Shipping-Estimator)
+2024-11-14T14:41:44.527+01:00  INFO 32196 --- [    Test worker] c.c.s.controllers.CargoControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2024-11-14T14:41:45.551+01:00  INFO 32196 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-11-14T14:41:45.551+01:00  INFO 32196 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-11-14T14:41:45.551+01:00  INFO 32196 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2024-11-14T14:41:45.661+01:00  INFO 32196 --- [    Test worker] c.c.s.controllers.CargoControllerTest    : Started CargoControllerTest in 1.154 seconds (process running for 14.418)
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\m0770\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.19\154da3a65b4f4a909d3e5bdec55d1b2b4cbb6ce1\byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

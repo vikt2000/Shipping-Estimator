@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-11-14T13:41:48" hostname="M61191121" time="0.014">
+  <properties/>
+  <testcase name="testGetAllVessels()" classname="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" time="0.001"/>
+  <testcase name="testUpdateVessel()" classname="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" time="0.005"/>
+  <testcase name="testDeleteVessel()" classname="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" time="0.002"/>
+  <testcase name="testSaveVessel()" classname="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" time="0.001"/>
+  <testcase name="testGetVesselByImo()" classname="com.clearvoyage.shipping_estimator.services.VesselServiceImplTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VesselServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shipping-estimator</a> &gt; <a href="index.source.html" class="el_package">com.clearvoyage.shipping_estimator.services</a> &gt; <span class="el_source">VesselServiceImpl.java</span></div><h1>VesselServiceImpl.java</h1><pre class="source lang-java linenums">package com.clearvoyage.shipping_estimator.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.clearvoyage.shipping_estimator.entities.Vessel;
+import com.clearvoyage.shipping_estimator.repositories.VesselRepository;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class VesselServiceImpl implements VesselService {
+
+    private final VesselRepository vesselRepository;
+
+    @Autowired
+<span class="fc" id="L16">    public VesselServiceImpl(VesselRepository vesselRepository) {</span>
+<span class="fc" id="L17">        this.vesselRepository = vesselRepository;</span>
+<span class="fc" id="L18">    }</span>
+
+    @Override
+    public Vessel saveVessel(Vessel vessel) {
+<span class="fc" id="L22">        return vesselRepository.save(vessel);</span>
+    }
+
+    @Override
+    public Optional&lt;Vessel&gt; getVesselByImo(Long imo) {
+<span class="fc" id="L27">        return vesselRepository.findByImo(imo);</span>
+    }
+
+    @Override
+    public List&lt;Vessel&gt; getAllVessels() {
+<span class="fc" id="L32">        return vesselRepository.findAll();</span>
+    }
+
+    @Override
+    public Optional&lt;Vessel&gt; updateVessel(Long imo, Vessel vesselDetails) {
+<span class="fc" id="L37">        return vesselRepository.findByImo(imo).map(existingVessel -&gt; {</span>
+<span class="fc" id="L38">            existingVessel.setName(vesselDetails.getName());</span>
+<span class="fc" id="L39">            existingVessel.setLength(vesselDetails.getLength());</span>
+<span class="fc" id="L40">            existingVessel.setWidth(vesselDetails.getWidth());</span>
+<span class="fc" id="L41">            existingVessel.setMaxDraft(vesselDetails.getMaxDraft());</span>
+<span class="fc" id="L42">            return vesselRepository.save(existingVessel);</span>
+        });
+    }
+
+    @Override
+    public boolean deleteVessel(Long imo) {
+<span class="fc" id="L48">        return vesselRepository.findByImo(imo).map(vessel -&gt; {</span>
+<span class="fc" id="L49">            vesselRepository.delete(vessel);</span>
+<span class="fc" id="L50">            return true;</span>
+<span class="fc" id="L51">        }).orElse(false);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
