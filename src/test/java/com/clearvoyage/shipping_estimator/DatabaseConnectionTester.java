@@ -29,9 +29,9 @@ public class DatabaseConnectionTester implements CommandLineRunner {
         try {
             // Perform a simple query to check the connection
             entityManager.createNativeQuery("SELECT 1").getSingleResult();
-            System.out.println("Connexion à la base de données réussie !");
+            System.out.println("Database connection successful!");
         } catch (Exception e) {
-            System.err.println("Échec de la connexion à la base de données : " + e.getMessage());
+            System.err.println("Database connection failed: " + e.getMessage());
         } finally {
             // Reset System.out and System.err
             System.setOut(originalOut);
@@ -47,3 +47,4 @@ public class DatabaseConnectionTester implements CommandLineRunner {
         System.err.println("Captured Error Output: " + errorOutput);
     }
 }
+

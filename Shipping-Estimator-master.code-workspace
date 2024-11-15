@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "Shipping-Estimator-master",
+			"path": "."
+		},
+		{
+			"name": "frontendforshipestiamtor-main",
+			"path": "../frontendforshipestiamtor-main"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic",
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
