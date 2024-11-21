@@ -15,7 +15,7 @@ public class SeaRoutesApiClient {
     private final String apiKey;
 
     public SeaRoutesApiClient(WebClient.Builder webClientBuilder,
-                              @Value("${searoutes.api.url}") String apiUrl,
+                              @Value("https://api.searoutes.com/route/v2/sea/") String apiUrl,
                               @Value("${searoutes.api.key}") String apiKey) {
         this.webClient = webClientBuilder.build();
         this.apiUrl = apiUrl;
@@ -24,7 +24,7 @@ public class SeaRoutesApiClient {
 
     public Mono<String> fetchSeaRoutesData(String startLong, String startLat, String endLong, String endLat) {
         // Manually construct the exact URL with already-encoded path parameters
-        String url = apiUrl + "/" + startLong + "%2C" + startLat + "%3B" + endLong + "%2C" + endLat +
+        String url = apiUrl + startLong + "%2C" + startLat + "%3B" + endLong + "%2C" + endLat +
                 "?continuousCoordinates=true&allowIceAreas=false&avoidHRA=false&avoidSeca=false";
 
         // Log the URL for verification

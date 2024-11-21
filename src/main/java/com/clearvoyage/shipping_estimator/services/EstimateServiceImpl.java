@@ -1,5 +1,7 @@
 package com.clearvoyage.shipping_estimator.services;
 
+import com.clearvoyage.shipping_estimator.utils.DistanceManager;
+import com.clearvoyage.shipping_estimator.utils.VoyageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,26 @@ public class EstimateServiceImpl implements EstimateService {
         this.estimateRepository = estimateRepository;
         this.cargoRepository = cargoRepository;
         this.vesselRepository = vesselRepository;
+    }
+
+    public Double getFuelCostBetweenPorts(String portA, String portB) {
+        Double fuelCost = FuelCostCalculator.calculateFuelCost(portA, portB);
+
+        if (fuelCost != null) {
+            return fuelCost;
+        } else {
+            throw new IllegalArgumentException("Voyage information between the specified ports is not available.");
+        }
+    }
+
+    public VoyageInfo getVoyageInfoBetweenPorts(String portA, String portB) {
+        VoyageInfo voyageInfo = DistanceManager.getVoyageInfo(portA, portB);
+
+        if (voyageInfo != null) {
+            return voyageInfo;
+        } else {
+            throw new IllegalArgumentException("Voyage information between the specified ports is not available.");
+        }
     }
 
     @Override

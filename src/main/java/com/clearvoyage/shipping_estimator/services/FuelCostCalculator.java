@@ -1,30 +1,48 @@
 package com.clearvoyage.shipping_estimator.services;
 
+import com.clearvoyage.shipping_estimator.utils.DistanceManager;
+import com.clearvoyage.shipping_estimator.utils.VoyageInfo;
+
 public class FuelCostCalculator {
 
-    public static void main(String[] args) {
-        double distanceInNauticalMiles = 1000.0;
-        double fuelCost = calculateFuelCost(distanceInNauticalMiles);
+    /**
+     * Calculates the fuel cost for a voyage between two ports.
+     *
+     * @param portA The name of the departure port.
+     * @param portB The name of the destination port.
+     * @return The total fuel cost in USD, or null if the voyage info is not found.
+     */
+    public static Double calculateFuelCost(String portA, String portB) {
+        // Retrieve the voyage information between the two ports
+        VoyageInfo voyageInfo = DistanceManager.getVoyageInfo(portA, portB);
 
-        System.out.println("Total fuel cost: $" + fuelCost);
+        if (voyageInfo == null) {
+            // Voyage information not found
+            return null;
+        }
+
+        // Use the duration provided in the voyage info
+        double voyageDurationInDays = voyageInfo.getDuration();
+
+        // Calculate the fuel cost
+        return calculateFuelCost(voyageDurationInDays);
     }
 
     /**
-     * Calculates the fuel cost based on the distance.
+     * Calculates the fuel cost based on the voyage duration in days.
      *
-     * @param distanceInNauticalMiles The distance of the voyage in nautical miles.
+     * @param voyageDurationInDays The duration of the voyage in days.
      * @return The total fuel cost in USD.
      */
-    public static double calculateFuelCost(double distanceInNauticalMiles) {
+    public static double calculateFuelCost(double voyageDurationInDays) {
 
-        double averageSpeedInKnots = 12.0;
-        double fuelConsumptionPerDay = 20.0;
-        double fuelPricePerTonne = 500.0;
+        double fuelConsumptionPerDay = 20.0;     // Fuel consumption in tonnes per day
+        double fuelPricePerTonne = 500.0;        // Fuel price in USD per tonne
 
-        double voyageDurationInDays = distanceInNauticalMiles / averageSpeedInKnots / 24.0;
-
+        // Calculate total fuel consumption in tonnes
         double totalFuelConsumption = voyageDurationInDays * fuelConsumptionPerDay;
 
+        // Calculate total fuel cost
         return totalFuelConsumption * fuelPricePerTonne;
     }
 }
