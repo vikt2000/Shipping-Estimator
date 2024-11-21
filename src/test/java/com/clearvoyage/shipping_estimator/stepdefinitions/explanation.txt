@@ -1,0 +1,1 @@
+I have used an ai to generete a templete for a user story to test find the userstory in test/resources/features/estimate_shipping_cost.feature
