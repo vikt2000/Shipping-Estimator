@@ -1,7 +1,9 @@
 package com.clearvoyage.shipping_estimator.controllers;
 
+import com.clearvoyage.shipping_estimator.utils.VoyageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.clearvoyage.shipping_estimator.entities.Estimate;
 import com.clearvoyage.shipping_estimator.services.EstimateService;
@@ -82,6 +84,34 @@ public class EstimateController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/fuel-cost")
+    public ResponseEntity<Double> getFuelCost(@RequestParam String portA, @RequestParam String portB) {
+        if (!StringUtils.hasText(portA) || !StringUtils.hasText(portB)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            Double fuelCost = estimateService.getFuelCostBetweenPorts(portA, portB);
+            return ResponseEntity.ok(fuelCost);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
+    @GetMapping("/voyage-info")
+    public ResponseEntity<VoyageInfo> getVoyageInfo(@RequestParam String portA, @RequestParam String portB) {
+        if (!StringUtils.hasText(portA) || !StringUtils.hasText(portB)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            VoyageInfo voyageInfo = estimateService.getVoyageInfoBetweenPorts(portA, portB);
+            return ResponseEntity.ok(voyageInfo);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(null);
         }
     }
 }

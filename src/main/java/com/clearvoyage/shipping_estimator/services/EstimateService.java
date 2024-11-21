@@ -1,10 +1,30 @@
 package com.clearvoyage.shipping_estimator.services;
 
 import com.clearvoyage.shipping_estimator.entities.Estimate;
+import com.clearvoyage.shipping_estimator.utils.VoyageInfo;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface EstimateService {
+
+    /**
+     * Calculates the fuel cost between two ports.
+     *
+     * @param portA The name of the departure port.
+     * @param portB The name of the destination port.
+     * @return The total fuel cost in USD.
+     */
+    Double getFuelCostBetweenPorts(String portA, String portB);
+
+    /**
+     * Retrieves voyage information between two ports.
+     *
+     * @param portA The name of the departure port.
+     * @param portB The name of the destination port.
+     * @return The VoyageInfo containing distance and duration.
+     */
+    VoyageInfo getVoyageInfoBetweenPorts(String portA, String portB);
 
     /**
      * Saves a new Estimate to the database.

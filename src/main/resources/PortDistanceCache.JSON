@@ -1,0 +1,62 @@
+{
+  "BONNY-CHIBA": {
+    "distance": 10812.56,
+    "duration": 1716626000
+  },
+  "BONNY-HOUSTON": {
+    "distance": 6163.16,
+    "duration": 979012000
+  },
+  "BONNY-LOS ANGELES": {
+    "distance": 8296.27,
+    "duration": 1320823000
+  },
+  "BONNY-ROTTERDAM": {
+    "distance": 4439.60,
+    "duration": 704821000
+  },
+  "BONNY-SINGAPORE": {
+    "distance": 8054.81,
+    "duration": 1278851000
+  },
+  "CHIBA-HOUSTON": {
+    "distance": 9269.20,
+    "duration": 1475647000
+  },
+  "CHIBA-LOS ANGELES": {
+    "distance": 4912.99,
+    "duration": 779076000
+  },
+  "CHIBA-ROTTERDAM": {
+    "distance": 11366.88,
+    "duration": 1825919000
+  },
+  "CHIBA-SINGAPORE": {
+    "distance": 2931.54,
+    "duration": 464085000
+  },
+  "HOUSTON-LOS ANGELES": {
+    "distance": 4480.73,
+    "duration": 714586000
+  },
+  "HOUSTON-ROTTERDAM": {
+    "distance": 4997.17,
+    "duration": 793436000
+  },
+  "HOUSTON-SINGAPORE": {
+    "distance": 11750.69,
+    "duration": 1886798000
+  },
+  "LOS ANGELES-ROTTERDAM": {
+    "distance": 7853.18,
+    "duration": 1250420000
+  },
+  "LOS ANGELES-SINGAPORE": {
+    "distance": 7719.81,
+    "duration": 1225996000
+  },
+  "ROTTERDAM-SINGAPORE": {
+    "distance": 8447.91,
+    "duration": 1361776000
+  }
+}
