@@ -55,7 +55,6 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     @Transactional
     public Estimate saveEstimate(Estimate estimate) {
-        // Validate and fetch associated entities
         if (estimate.getCargo() != null) {
             Cargo cargo = cargoRepository.findById(estimate.getCargo().getId())
                     .orElseThrow(() -> new NoSuchElementException("Cargo not found"));
@@ -84,7 +83,6 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     public Optional<Estimate> updateEstimate(Integer id, Estimate estimateDetails) {
         return estimateRepository.findById(id).map(existingEstimate -> {
-            // Validate and fetch associated entities
             if (estimateDetails.getCargo() != null) {
                 Cargo cargo = cargoRepository.findById(estimateDetails.getCargo().getId())
                         .orElseThrow(() -> new NoSuchElementException("Cargo not found"));

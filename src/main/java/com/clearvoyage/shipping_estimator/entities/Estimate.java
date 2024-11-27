@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Estimate {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cargo_id", nullable = false) // Foreign key column
+    @JoinColumn(name = "cargo_id", nullable = false)
     private Cargo cargo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vessel_id", nullable = false) // Foreign key column
+    @JoinColumn(name = "vessel_id", nullable = false)
     private Vessel vessel;
 
     @Column(name = "weight", nullable = false)

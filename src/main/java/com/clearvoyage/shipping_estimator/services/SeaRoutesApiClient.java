@@ -1,4 +1,4 @@
-package com.clearvoyage.shipping_estimator.service;
+package com.clearvoyage.shipping_estimator.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,8 @@ public class SeaRoutesApiClient {
         String url = apiUrl + startLong + "%2C" + startLat + "%3B" + endLong + "%2C" + endLat +
                 "?continuousCoordinates=true&allowIceAreas=false&avoidHRA=false&avoidSeca=false";
 
-        // Log the URL for verification
-        System.out.println("Request URL: " + url);
-
-        // Use URI.create to ensure the URL is sent exactly as constructed
         return webClient.get()
-                .uri(URI.create(url))  // Pass the pre-encoded URI directly
+                .uri(URI.create(url))
                 .header("x-api-key", apiKey)
                 .retrieve()
                 .bodyToMono(String.class);

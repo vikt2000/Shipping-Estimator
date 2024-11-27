@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Port {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
