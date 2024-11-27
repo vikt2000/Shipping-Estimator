@@ -16,27 +16,26 @@ import java.util.Optional;
 public class CargoServiceImpl implements CargoService {
 
     private final CargoRepository cargoRepository;
-    private final PortRepository portRepository; // Add the Port repository
+    private final PortRepository portRepository;
 
     @Autowired
     public CargoServiceImpl(CargoRepository cargoRepository, PortRepository portRepository) {
         this.cargoRepository = cargoRepository;
-        this.portRepository = portRepository; // Initialize the Port repository
+        this.portRepository = portRepository;
     }
 
     @Override
-    @Transactional  // Ensure that this method is transactional
+    @Transactional
     public Cargo saveCargo(Cargo cargo) {
-        // Check and merge the associated ports to ensure they are managed
         if (cargo.getLoadingPort() != null) {
             Port loadingPort = portRepository.findById(cargo.getLoadingPort().getId())
-                .orElseThrow(() -> new NoSuchElementException("Loading Port not found")); // Corrected here
-            cargo.setLoadingPort(loadingPort); // Set the managed loading port
+                .orElseThrow(() -> new NoSuchElementException("Loading Port not found"));
+            cargo.setLoadingPort(loadingPort);
         }
         if (cargo.getDischargePort() != null) {
             Port dischargePort = portRepository.findById(cargo.getDischargePort().getId())
-                .orElseThrow(() -> new NoSuchElementException("Discharge Port not found")); // Corrected here
-            cargo.setDischargePort(dischargePort); // Set the managed discharge port
+                .orElseThrow(() -> new NoSuchElementException("Discharge Port not found"));
+            cargo.setDischargePort(dischargePort);
         }
     
         return cargoRepository.save(cargo); 
@@ -56,16 +55,15 @@ public class CargoServiceImpl implements CargoService {
     public Optional<Cargo> updateCargo(Integer id, Cargo cargoDetails) {
         return cargoRepository.findById(id).map(existingCargo -> {
             existingCargo.setName(cargoDetails.getName());
-    
-            // Update ports in the same manner as saveCargo
+
             if (cargoDetails.getLoadingPort() != null) {
                 Port loadingPort = portRepository.findById(cargoDetails.getLoadingPort().getId())
-                    .orElseThrow(() -> new NoSuchElementException("Loading Port not found")); // Corrected here
+                    .orElseThrow(() -> new NoSuchElementException("Loading Port not found"));
                 existingCargo.setLoadingPort(loadingPort);
             }
             if (cargoDetails.getDischargePort() != null) {
                 Port dischargePort = portRepository.findById(cargoDetails.getDischargePort().getId())
-                    .orElseThrow(() -> new NoSuchElementException("Discharge Port not found")); // Corrected here
+                    .orElseThrow(() -> new NoSuchElementException("Discharge Port not found"));
                 existingCargo.setDischargePort(dischargePort);
             }
     

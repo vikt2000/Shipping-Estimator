@@ -1,6 +1,6 @@
 package com.clearvoyage.shipping_estimator.controllers;
 
-import com.clearvoyage.shipping_estimator.service.SeaRoutesApiClient;
+import com.clearvoyage.shipping_estimator.services.SeaRoutesApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -6,7 +6,6 @@ public class VoyageInfo {
     private double duration; // In days
 
     public VoyageInfo() {
-        // Default constructor for JSON deserialization
     }
 
     public VoyageInfo(double distance, double duration) {
@@ -14,7 +13,6 @@ public class VoyageInfo {
         this.duration = duration;
     }
 
-    // Getters and Setters
     public double getDistance() {
         return distance;
     }

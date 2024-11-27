@@ -13,7 +13,6 @@ public class ShippingController {
         @RequestParam String vesselType,
         @RequestParam double weight
     ) {
-        // Your logic for calculating shipping costs goes here.
         return "Calculated shipping cost"; // Placeholder
     }
 }

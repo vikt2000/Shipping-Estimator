@@ -16,9 +16,6 @@ public class DistanceManager {
         loadVoyageInfo();
     }
 
-    /**
-     * Loads voyage information from the JSON file into the map.
-     */
     private static void loadVoyageInfo() {
         ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream inputStream = DistanceManager.class.getClassLoader().getResourceAsStream(DISTANCE_FILE)) {
@@ -32,32 +29,11 @@ public class DistanceManager {
         }
     }
 
-    /**
-     * Retrieves the voyage information between two ports.
-     *
-     * @param portA The name of the first port.
-     * @param portB The name of the second port.
-     * @return The VoyageInfo object containing distance and duration, or null if not found.
-     */
-    /**
-     * Retrieves the voyage information between two ports.
-     *
-     * @param portA The name of the first port.
-     * @param portB The name of the second port.
-     * @return The VoyageInfo object containing distance and duration, or null if not found.
-     */
     public static VoyageInfo getVoyageInfo(String portA, String portB) {
         String key = createKey(portA, portB);
         return voyageInfoMap.get(key);
     }
 
-    /**
-     * Creates a standardized key for the port pair to ensure consistency.
-     *
-     * @param portA The name of the first port.
-     * @param portB The name of the second port.
-     * @return A standardized key.
-     */
     private static String createKey(String portA, String portB) {
         String portAUpper = portA.trim().toUpperCase();
         String portBUpper = portB.trim().toUpperCase();
