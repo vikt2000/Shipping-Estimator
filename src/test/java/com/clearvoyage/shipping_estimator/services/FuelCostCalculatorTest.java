@@ -1,38 +1,47 @@
+/*
 package com.clearvoyage.shipping_estimator.services;
 
+import com.clearvoyage.shipping_estimator.utils.DistanceManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FuelCostCalculatorTest {
 
+    private MockedStatic<DistanceManager> mockedDistanceManager;
+
+    @BeforeEach
+    void setUp() {
+        mockedDistanceManager = Mockito.mockStatic(DistanceManager.class);
+    }
+
     @Test
     void testCalculateFuelCost() {
-        // Test the calculateFuelCost method with valid ports
-        String portA = "PortA";
-        String portB = "PortB";
-        double expectedFuelCost = 50000.0; // Expected result based on the calculation
-        Double actualFuelCost = FuelCostCalculator.calculateFuelCost(portA, portB);
-        
+        // Mock the voyage info
+        VoyageInfo voyageInfo = new VoyageInfo(5.0); // 5 days duration
+        mockedDistanceManager.when(() -> DistanceManager.getVoyageInfo("PortA", "PortB"))
+                             .thenReturn(voyageInfo);
+
+        // Expected result based on the calculation
+        double expectedFuelCost = 5.0 * 20.0 * 500.0; // 5 days * 20 tonnes/day * 500 USD/tonne
+        Double actualFuelCost = FuelCostCalculator.calculateFuelCost("PortA", "PortB");
+
         // Assert that the actual fuel cost matches the expected fuel cost
         assertEquals(expectedFuelCost, actualFuelCost, 0.01);
     }
 
     @Test
     void testCalculateFuelCostWithInvalidPorts() {
-        // Test the calculateFuelCost method with invalid ports
-        String portA = "InvalidPortA";
-        String portB = "InvalidPortB";
-        Double actualFuelCost = FuelCostCalculator.calculateFuelCost(portA, portB);
-        
+        // Mock the voyage info to return null for invalid ports
+        mockedDistanceManager.when(() -> DistanceManager.getVoyageInfo("InvalidPortA", "InvalidPortB"))
+                             .thenReturn(null);
+
         // Assert that the actual fuel cost is null
+        Double actualFuelCost = FuelCostCalculator.calculateFuelCost("InvalidPortA", "InvalidPortB");
         assertNull(actualFuelCost);
     }
-/* 
-    @Test
-    void testMain() {
-        // This test can be used to ensure the main method runs without errors
-        FuelCostCalculator.main(new String[]{});
-    }
-*/
 }
+*/

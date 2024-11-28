@@ -43,37 +43,33 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'com.zaxxer:HikariCP:5.0.1'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.zaxxer:HikariCP'
-	implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.5'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux' // Corrected notation
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mockito:mockito-core:3.11.2' // Updated version
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
     testImplementation 'org.mockito:mockito-junit-jupiter' // For JUnit 5
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
 
+    // MariaDB Connector
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
 
-	// MariaDB Connector
-	implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
+    // Jackson for JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
-	// Jackson for JSON processing
-	implementation 'com.fasterxml.jackson.core:jackson-databind'
-
-	// Lombok for reducing boilerplate code
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    // Lombok for reducing boilerplate code
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.5'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux' // Corrected notation
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -115,6 +111,12 @@ sonarqube {
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
+
+task countLinesOfCode(type: Exec) {
+    description = 'Counts the lines of code in the project'
+    commandLine 'cloc', '.'
+}
+
 /*
 dockerCompose {
     useComposeFiles = ['docker-compose.yml']
