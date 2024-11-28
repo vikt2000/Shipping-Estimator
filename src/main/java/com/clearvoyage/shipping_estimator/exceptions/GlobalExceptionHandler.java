@@ -10,9 +10,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler to manage and respond to different types of exceptions.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles ResourceNotFoundExceptions.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleResourceNotFound(ResourceNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
@@ -20,6 +29,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Handles validation errors.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with validation error details.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -31,6 +46,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles type mismatch errors.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
         Map<String, String> error = new HashMap<>();
@@ -39,6 +60,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles all other exceptions.
+     *
+     * @param ex The exception.
+     * @return A ResponseEntity with error details.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
         Map<String, String> error = new HashMap<>();

@@ -19,12 +19,24 @@ public class PortController {
         this.portService = portService;
     }
 
+    /**
+     * Creates a new Port.
+     *
+     * @param port The port to create.
+     * @return The created port.
+     */
     @PostMapping
     public ResponseEntity<Port> createPort(@RequestBody Port port) {
         Port savedPort = portService.savePort(port);
         return ResponseEntity.ok(savedPort);
     }
 
+    /**
+     * Retrieves a Port by its ID.
+     *
+     * @param id The ID of the port.
+     * @return The found port or 404 if not found.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Port> getPortById(@PathVariable Integer id) {
         Optional<Port> portOpt = portService.getPortById(id);
@@ -32,12 +44,24 @@ public class PortController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Retrieves all Ports.
+     *
+     * @return A list of all ports.
+     */
     @GetMapping
     public ResponseEntity<List<Port>> getAllPorts() {
         List<Port> ports = portService.getAllPorts();
         return ResponseEntity.ok(ports);
     }
 
+    /**
+     * Updates an existing Port.
+     *
+     * @param id   The ID of the port to update.
+     * @param port The port data to update.
+     * @return The updated port or 404 if not found.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Port> updatePort(@PathVariable Integer id, @RequestBody Port port) {
         Optional<Port> updatedPortOpt = portService.updatePort(id, port);
@@ -45,6 +69,12 @@ public class PortController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Deletes a Port by its ID.
+     *
+     * @param id The ID of the port to delete.
+     * @return A response indicating the outcome.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePort(@PathVariable Integer id) {
         boolean isDeleted = portService.deletePort(id);

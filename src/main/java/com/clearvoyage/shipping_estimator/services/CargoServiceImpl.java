@@ -27,15 +27,16 @@ public class CargoServiceImpl implements CargoService {
     @Override
     @Transactional
     public Cargo saveCargo(Cargo cargo) {
+        // Check and merge the associated ports to ensure they are managed
         if (cargo.getLoadingPort() != null) {
             Port loadingPort = portRepository.findById(cargo.getLoadingPort().getId())
-                .orElseThrow(() -> new NoSuchElementException("Loading Port not found"));
-            cargo.setLoadingPort(loadingPort);
+                .orElseThrow(() -> new NoSuchElementException("Loading Port not found")); // Corrected here
+            cargo.setLoadingPort(loadingPort); // Set the managed loading port
         }
         if (cargo.getDischargePort() != null) {
             Port dischargePort = portRepository.findById(cargo.getDischargePort().getId())
-                .orElseThrow(() -> new NoSuchElementException("Discharge Port not found"));
-            cargo.setDischargePort(dischargePort);
+                .orElseThrow(() -> new NoSuchElementException("Discharge Port not found")); // Corrected here
+            cargo.setDischargePort(dischargePort); // Set the managed discharge port
         }
     
         return cargoRepository.save(cargo); 
@@ -55,7 +56,8 @@ public class CargoServiceImpl implements CargoService {
     public Optional<Cargo> updateCargo(Integer id, Cargo cargoDetails) {
         return cargoRepository.findById(id).map(existingCargo -> {
             existingCargo.setName(cargoDetails.getName());
-
+    
+            // Update ports in the same manner as saveCargo
             if (cargoDetails.getLoadingPort() != null) {
                 Port loadingPort = portRepository.findById(cargoDetails.getLoadingPort().getId())
                     .orElseThrow(() -> new NoSuchElementException("Loading Port not found"));
