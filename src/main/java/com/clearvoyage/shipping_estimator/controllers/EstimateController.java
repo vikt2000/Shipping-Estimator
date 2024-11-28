@@ -114,4 +114,72 @@ public class EstimateController {
             return ResponseEntity.status(404).body(null);
         }
     }
+
+    @GetMapping("/cargo-cost")
+    public ResponseEntity<Double> getCargoCost(@RequestParam Double amount, @RequestParam Double price) {
+        if (amount == null || price == null || amount < 0 || price < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Double cargoCost = amount * price;
+        return ResponseEntity.ok(cargoCost);
+    }
+
+    /**
+     * Calculates the broker commission based on the cargo cost and given percentage.
+     *
+     * @param amount     The amount in tons.
+     * @param price      The price per ton.
+     * @param percentage The commission percentage.
+     * @return The broker commission amount.
+     */
+    @GetMapping("/broker-commission")
+    public ResponseEntity<Double> getBrokerCommission(
+            @RequestParam Double amount,
+            @RequestParam Double price,
+            @RequestParam Double percentage) {
+
+        // Validate inputs
+        if (amount == null || price == null || percentage == null ||
+                amount < 0 || price < 0 || percentage < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Calculate cargo cost
+        Double cargoCost = amount * price;
+
+        // Calculate commission
+        Double commission = (cargoCost * percentage) / 100;
+
+        return ResponseEntity.ok(commission);
+    }
+
+    /**
+     * Calculates the address commission based on the cargo cost and given percentage.
+     *
+     * @param amount     The amount in tons.
+     * @param price      The price per ton.
+     * @param percentage The commission percentage.
+     * @return The address commission amount.
+     */
+    @GetMapping("/address-commission")
+    public ResponseEntity<Double> getAddressCommission(
+            @RequestParam Double amount,
+            @RequestParam Double price,
+            @RequestParam Double percentage) {
+
+        // Validate inputs
+        if (amount == null || price == null || percentage == null ||
+                amount < 0 || price < 0 || percentage < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Calculate cargo cost
+        Double cargoCost = amount * price;
+
+        // Calculate commission
+        Double commission = (cargoCost * percentage) / 100;
+
+        return ResponseEntity.ok(commission);
+    }
 }

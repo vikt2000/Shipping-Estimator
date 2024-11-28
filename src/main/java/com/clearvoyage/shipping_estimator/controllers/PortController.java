@@ -1,85 +1,46 @@
 package com.clearvoyage.shipping_estimator.controllers;
 
+import com.clearvoyage.shipping_estimator.entities.Port;
+import com.clearvoyage.shipping_estimator.services.PortCacheService;
+import com.clearvoyage.shipping_estimator.services.PortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.clearvoyage.shipping_estimator.entities.Port;
-import com.clearvoyage.shipping_estimator.services.PortService;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/ports")
 public class PortController {
 
-    private final PortService portService;
+    private final PortCacheService portCacheService;
 
     @Autowired
-    public PortController(PortService portService) {
-        this.portService = portService;
+    public PortController(PortCacheService portCacheService) {
+        this.portCacheService = portCacheService;
     }
 
     /**
-     * Creates a new Port.
+     * Retrieves all ports.
      *
-     * @param port The port to create.
-     * @return The created port.
-     */
-    @PostMapping
-    public ResponseEntity<Port> createPort(@RequestBody Port port) {
-        Port savedPort = portService.savePort(port);
-        return ResponseEntity.ok(savedPort);
-    }
-
-    /**
-     * Retrieves a Port by its ID.
-     *
-     * @param id The ID of the port.
-     * @return The found port or 404 if not found.
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<Port> getPortById(@PathVariable Integer id) {
-        Optional<Port> portOpt = portService.getPortById(id);
-        return portOpt.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    /**
-     * Retrieves all Ports.
-     *
-     * @return A list of all ports.
+     * @return A list of all Port objects.
      */
     @GetMapping
     public ResponseEntity<List<Port>> getAllPorts() {
-        List<Port> ports = portService.getAllPorts();
+        List<Port> ports = portCacheService.getAllPorts();
         return ResponseEntity.ok(ports);
     }
 
     /**
-     * Updates an existing Port.
+     * Retrieves a specific port by name.
      *
-     * @param id   The ID of the port to update.
-     * @param port The port data to update.
-     * @return The updated port or 404 if not found.
+     * @param name The name of the port.
+     * @return The Port object, or 404 if not found.
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<Port> updatePort(@PathVariable Integer id, @RequestBody Port port) {
-        Optional<Port> updatedPortOpt = portService.updatePort(id, port);
-        return updatedPortOpt.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    /**
-     * Deletes a Port by its ID.
-     *
-     * @param id The ID of the port to delete.
-     * @return A response indicating the outcome.
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePort(@PathVariable Integer id) {
-        boolean isDeleted = portService.deletePort(id);
-        if (isDeleted) {
-            return ResponseEntity.noContent().build();
+    @GetMapping("/{name}")
+    public ResponseEntity<Port> getPortByName(@PathVariable String name) {
+        Port port = portCacheService.getPortByName(name);
+        if (port != null) {
+            return ResponseEntity.ok(port);
         } else {
             return ResponseEntity.notFound().build();
         }

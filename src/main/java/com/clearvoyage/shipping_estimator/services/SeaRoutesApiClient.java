@@ -1,4 +1,4 @@
-package com.clearvoyage.shipping_estimator.service;
+package com.clearvoyage.shipping_estimator.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,4 @@
-{
-  "ports": [
+[
     {
       "name": "Houston",
       "latitude": 28.99,
@@ -30,5 +29,4 @@
       "latitude": 1.27,
       "longitude": 103.83
     }
-  ]
-}
+]
